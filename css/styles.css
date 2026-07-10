@@ -1,0 +1,337 @@
+/* Expense & Budget Visualizer — styles.css */
+
+/* =========================================================
+   Custom Properties / Theming
+   ========================================================= */
+:root {
+    --bg: #f0f2f5;
+    --surface: #ffffff;
+    --surface-2: #f8f9fb;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --danger: #dc2626;
+    --text: #111827;
+    --text-muted: #6b7280;
+    --border: #d1d5db;
+    --radius: 0.5rem;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================================
+   Base / Reset
+   ========================================================= */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 1rem;
+
+    /* Desktop grid layout */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+/* =========================================================
+   Grid placement
+   ========================================================= */
+#compatibility-banner {
+    grid-column: 1 / -1;
+}
+
+#balance-display {
+    grid-column: 1 / -1;
+}
+
+#input-form-section {
+    grid-column: 1;
+}
+
+#transaction-list-section {
+    grid-column: 2;
+}
+
+#chart-section {
+    grid-column: 1 / -1;
+}
+
+/* =========================================================
+   Mobile — single-column layout
+   ========================================================= */
+@media (max-width: 480px) {
+    body {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    #compatibility-banner,
+    #balance-display,
+    #input-form-section,
+    #transaction-list-section,
+    #chart-section {
+        grid-column: 1;
+    }
+}
+
+/* =========================================================
+   Compatibility Banner
+   ========================================================= */
+#compatibility-banner {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 0;
+    /* gap handles spacing */
+    border: 1px solid #fcd34d;
+    display: none;
+    /* JS controls visibility */
+}
+
+/* =========================================================
+   Sections
+   ========================================================= */
+section {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+}
+
+section h2 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+/* =========================================================
+   Balance Display
+   ========================================================= */
+#balance-amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* =========================================================
+   Form
+   ========================================================= */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 0.375rem;
+}
+
+input,
+select {
+    display: block;
+    width: 100%;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    background: #ffffff;
+    color: var(--text);
+    min-height: 44px;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.has-error input,
+.has-error select {
+    border-color: var(--danger);
+}
+
+.field-error {
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+    min-height: 1em;
+}
+
+form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    transition: background 0.15s;
+}
+
+form button[type="submit"]:hover {
+    background: var(--accent-hover);
+}
+
+/* =========================================================
+   Transaction List
+   ========================================================= */
+#transaction-list {
+    list-style: none;
+    max-height: 360px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#transaction-list li {
+    background: var(--surface-2);
+    border-radius: var(--radius);
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.transaction-name {
+    flex: 1 1 auto;
+    font-weight: 500;
+}
+
+.transaction-amount {
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+}
+
+.transaction-category {
+    font-size: 0.8rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.125rem 0.5rem;
+    white-space: nowrap;
+}
+
+.empty-state {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+
+.delete-btn {
+    margin-left: auto;
+    background: transparent;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    border-radius: var(--radius);
+    padding: 0.25rem 0.625rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    min-height: 44px;
+    min-width: 44px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.delete-btn:hover {
+    background: var(--danger);
+    color: #ffffff;
+}
+
+/* =========================================================
+   Scrollbar styling (WebKit)
+   ========================================================= */
+#transaction-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+#transaction-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#transaction-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+/* =========================================================
+   Chart Section
+   ========================================================= */
+#chart-container {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#chart-placeholder {
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+/* =========================================================
+   Error Toast
+   ========================================================= */
+#error-toast {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    background: #1e293b;
+    color: #ffffff;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: 90vw;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#error-toast.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s;
+}
+
+.toast-close-btn {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 0.25rem;
+    line-height: 1;
+}
